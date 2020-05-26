@@ -1,0 +1,357 @@
+data_ions
+#
+# Dokmanic, I., Sikic, M., & Tomic, S. (2008).  Metals in proteins: correlation
+# between the metal-ion type, coordination number, and the amino-acid
+# residues involved in the coordination.  Acta Cryst. D64, 257-263.
+#
+# Zheng, H., Chruszcz, M., Lasota, P., Lebioda, L., & Minor, W. (2008).
+# Data mining of metal ion environments present in protein structures.
+# J. Inorg. Biochem. 102, 1765-1776.
+#
+# Muller, P., Kopke, S., & Sheldrick, G. (2002).  Is the bond-valence method
+# able to identify metal atoms in protein structures?  Acta Cryst. D59, 32-37.
+#
+# Harding, M. (2001).  Geometry of metal-ligand interactions in proteins.
+# Acta Cryst. D57, 401-411.
+#
+# Harding, M. (2000).  The geometry of metal-ligand interactions relevant to
+# proteins. II. Angles at the metal atom, additional weak metal-donor
+# interactions.  Acta Cryst. D56, 857-867.
+#
+# Rulisek, L. & Vondrasek, J. (1998).  Coordination geometries of selected
+# transition metal ions (Co2+, Ni2+, Cu2+, Zn2+, Cd2+, and Hg2+) in
+# metalloproteins.  J. Inorg. Biochem. 71, 115-127.
+#
+loop_
+_lib_elems.element
+_lib_elems.charge
+_lib_elems.vec_sum_cutoff
+_lib_elems.coord_num_lower
+_lib_elems.coord_num_upper
+_lib_elems.min_coordinating_non_waters
+_lib_elems.cvbs_lower
+_lib_elems.cvbs_expected
+_lib_elems.cvbs_upper
+NA  1  0.4  4  8  1  0.8   1  1.2
+MG  2  0.4  4  6  0  1.8   2  2.2
+K   1  0.4  4  8  1  0.8   1  1.2
+CA  2  0.4  5  8  0  1.75  2  2.2
+MN  2  0.4  4  6  1  1.75  2  2.2
+FE  2  0.4  5  6  1  1.75  2  2.2
+CO  2  0.4  5  6  1  1.75  2  2.2
+CU  2  0.4  3  4  1  1.75  2  2.2
+NI  2  0.4  4  6  1  1.75  2  2.2
+ZN  2  0.4  4  6  1  1.75  2  2.4
+CD  2  0.6  3  7  1  1.5   2  2.3
+#
+loop_
+_lib_ligands.element
+_lib_ligands.allowed_coordinating_atoms
+_lib_ligands.allowed_coordinating_residues
+_lib_ligands.allowed_geometries
+_lib_ligands.allowed_backbone_atoms
+NA  O,N       .                            octahedral,square_pyramidal,any                O,OXT
+MG  O,N,F     SER,THR,ASP,ASN,GLU,GLN,HIS  octahedral                    O,OXT
+K   O         .                            .                             O,OXT
+CA  O         SER,THR,ASP,ASN,GLU,GLN,TYR  octahedral,pentagonal_bipyramidal,any                O
+MN  O,N       SER,THR,ASP,GLU,ASN,GLN,HIS  .                             .
+FE  O,N,S     CYS,ASP,GLU,HIS,TYR          .                             .
+CO  O,N       CYS,ASP,GLU,HIS              tetrahedral,octahedral        .
+CU  O,N,S     CYS,MET,HIS                  tetrahedral,square_planar,any .
+NI  O,N,S     CYS,ASP,GLU,HIS              tetrahedral,octahedral,any    .
+ZN  O,N,S     CYS,ASP,GLU,HIS              tetrahedral,octahedral,any    .
+CD  O,N,S,CL  .                            tetrahedral,octahedral,any    O,OXT
+#
+# Ion residue names and their corresponding elements and charges. When multiple
+# charges may be possible for a given element, put the line for the default
+# charge first. This information was taken from:
+# http://www.rcsb.org/pdb/ligand/ligandsummary.do?hetId={resname}
+loop_
+_lib_charge.resname
+_lib_charge.element
+_lib_charge.charge
+H       H       -1
+.       HE      0
+LI      LI      1
+.       BE      2 # ?
+.       B       3 # ?
+C       C       4
+N       N       -3
+O       O       -2
+HOH     O       -2
+H2O     O       -2
+OH2     O       -2
+DOD     O       -2
+OD2     O       -2
+WAT     O       -2
+TIP     O       -2
+F       F       -1
+.       NE      0 # ?
+NA      NA      1
+MG      MG      2
+AL      AL      3
+SI      SI      4
+P       P       -3
+S       S       -2
+CL      CL      -1
+.       AR      0 # ?
+K       K       1
+CA      CA      2
+.       SC      3 # ?
+.       TI      3 # ?
+V       V       3
+CR      CR      3
+MN      MN      2
+MN3     MN      3
+FE2     FE      2
+FE      FE      3
+CO      CO      2
+3CO     CO      3
+NI      NI      2
+3NI     NI      3
+CU      CU      2
+CU1     CU      1
+CU3     CU      3
+ZN      ZN      2
+ZN2     ZN      2
+.       GA      3 # ?
+.       GE      4 # ?
+ARS     AS      0
+SE      SE      2 # XXX: PDB has marked as charge of 0 (H2Se)
+BR      BR      -1
+.       KR      0 # ?
+RB      RB      1
+SR      SR      2
+Y1      Y       2
+YT3     Y       3
+.       ZR      3 # ?
+.       NB      3 # ?
+MO      MO      0
+4MO     MO      4
+6MO     MO      6
+.       TC      2 # ?
+RU      RU      3
+.       RH      2 # ?
+PD      PD      2
+AG      AG      1
+CD      CD      2
+IN      IN      3
+.       SN      4 # ?
+.       SB      -3 # ?
+.       TE      -2 # ?
+IOD     I       -1
+XE      XE      0 # ?
+CS      CS      1
+BA      BA      2
+LA      LA      3
+CE      CE      3
+PR      PR      3
+.       ND      0 # ???
+.       PM      0 # ???
+SM      SM      3
+EU      EU      2
+EU3     EU      3
+GD      GD      0
+GD3     GD      3
+TB      TB      3
+.       DY      0 # ???
+HO      HO      0
+HO3     HO      3
+ER      ER      3
+.       TM      0 # ???
+YB      YB      3
+YB2     YB      2
+LU      LU      3
+.       HF      0 # ???
+.       TA      0 # ???
+W       W       6
+RE      RE      0
+OS      OS      3
+OS4     OS      4
+IR      IR      4
+IR3     IR      3
+PT      PT      2
+PT4     PT      4
+AU      AU      1
+AU3     AU      3
+HG      HG      2
+TL      TL      1
+PB      PB      2
+BS3     BI      3
+.       PO      -2 # ???
+.       AT      -1 # ???
+.       RN      0 # ???
+.       FR      1 # ???
+.       RA      2 # ???
+.       AC      0 # ???
+.       TH      0 # ???
+.       PA      0 # ???
+U1      U       0
+.       NP      0 # ???
+.       PU      0 # ???
+.       AM      0 # ???
+.       CM      0 # ???
+.       BK      0 # ???
+.       CF      0 # ???
+.       ES      0 # ???
+.       FM      0 # ???
+.       MD      0 # ???
+.       NO      0 # ???
+.       LR      0 # ???
+.       RF      0 # ???
+.       DB      0 # ???
+.       SG      0 # ???
+.       BH      0 # ???
+.       HS      0 # ???
+.       MT      0 # ???
+.       DS      0 # ???
+.       RG      0 # ???
+
+#
+loop_
+_lib_valence.atom_symbol
+_lib_valence.atom_charge
+_lib_valence.donor_symbol
+_lib_valence.donor_charge
+_lib_valence.value
+#
+# Brown, I. D., & Altermatt, D. (1985). Bond-valence parameters obtained from
+# a systematic analysis of the Inorganic Crystal Structure Database. Acta
+# Crystallographica Section B Structural Science, 41(4), 244-247.
+# doi:10.1107/S0108768185002063
+#
+# Brese, N. E., & O'Keeffe, M. (1991). Bond-valence parameters for solids.
+# Acta Crystallographica Section B Structural Science, 47(2), 192-197.
+# doi:10.1107/S0108768190011041
+#
+AC   3   O    -2   2.24
+AC   3   F    -1   2.13
+AC   3   CL   -1   2.63
+AG   1   O    -2   1.805
+AG   1   F    -1   1.80
+AG   1   CL   -1   2.09
+AL   3   O    -2   1.651
+AL   3   F    -1   1.545
+AL   3   CL   -1   2.03
+AM   3   O    -2   2.11
+AM   3   F    -1   2.00
+AM   3   CL   -1   2.48
+AS   3   O    -2   1.789
+AS   3   F    -1   1.70
+AS   3   CL   -1   2.16
+AS   5   O    -2   1.767
+AS   5   F    -1   1.62
+AS   5   CL   -1   2.14
+AU   3   O    -2   1.833
+AU   3   F    -1   1.81
+AU   3   CL   -1   2.17
+B    3   O    -2   1.371
+B    3   F    -1   1.31
+B    3   CL   -1   1.74
+BA   2   O    -2   2.29
+BA   2   F    -1   2.19
+BA   2   CL   -1   2.69
+CA   2   N    -3   2.14
+CA   2   O    -2   1.967
+CA   2   F    -1   1.842
+CA   2   P    -3   2.55
+CA   2   S    -2   2.45
+CA   2   CL   -1   2.37
+CD   2   O    -2   1.904
+CD   2   F    -1   1.811
+CD   2   CL   -1   2.23
+CD   2   N    -3   1.96
+CD   2   S    -2   2.29
+CL   7   O    -2   1.632
+CL   7   F    -1   1.55
+CL   7   CL   -1   2.00
+CO   2   N    -3   1.84
+CO   2   O    -2   1.692
+CO   2   F    -1   1.64
+CO   2   CL   -1   2.01
+CO   2   CL   -1   2.033
+CO   2   O    -2   1.692
+CO   2   S    -2   2.06
+CO   3   C     2   1.634
+CU   1   I    -1   2.108
+CU   1   S    -2   1.898
+CU   2   N    -3   1.61
+CU   2   O    -2   1.679
+CU   2   F    -1   1.594
+CU   2   S    -2   2.054
+CU   2   CL   -1   2.00
+CU   2   SE   -2   2.02
+FE   2   N    -3   1.86
+FE   2   O    -2   1.734
+FE   2   F    -1   1.65
+# XXX this one is dubious
+FE   2   S    -2   2.16
+FE   2   CL   -1   2.06
+FE   3   C     2   1.689
+FE   3   N    -3   1.86
+FE   3   O    -2   1.759
+FE   3   F    -1   1.67
+FE   3   CL   -1   2.09
+FE   3   S    -2   2.149
+HG   1   O    -2   1.90
+HG   1   F    -1   1.81
+HG   1   CL   -1   2.28
+HG   2   H    -1   1.71
+HG   2   N    -3   2.02
+HG   2   O    -2   1.93
+HG   2   F    -1   1.90
+HG   2   P    -3   2.42
+HG   2   S    -2   2.32
+HG   2   CL   -1   2.25
+HG   2   AS   -3   2.50
+HG   2   SE   -2   2.47
+HG   2   BR   -1   2.40
+HG   2   TE   -2   2.61
+HG   2   I    -1   2.59
+K    1   O    -2   2.132
+K    1   F    -1   1.992
+K    1   CL   -1   2.519
+MG   2   N    -3   1.85
+MG   2   O    -2   1.693
+MG   2   F    -1   1.578
+MG   2   P    -3   2.29
+MG   2   S    -2   2.18
+MG   2   CL   -1   2.08
+MN   2   N    -3   1.87
+MN   2   O    -2   1.790
+MN   2   F    -1   1.698
+MN   2   P    -3   2.24
+MN   2   S    -2   2.20
+MN   2   CL   -1   2.13
+MN   2   SE   -2   2.32
+MN   2   BR   -1   2.26
+MN   2   I    -1   2.49
+MN   3   O    -2   1.760
+MN   4   O    -2   1.753
+NA   1   N    -3   1.93
+NA   1   O    -2   1.80
+NA   1   F    -1   1.677
+NA   1   P    -3   2.36
+NA   1   S    -2   2.28
+NA   1   CL   -1   2.15
+NI   2   N    -3   1.75
+NI   2   O    -2   1.654
+NI   2   F    -1   1.596
+NI   2   S    -2   2.04
+NI   2   CL   -1   2.02
+RB   1   N    -3   2.37
+RB   1   O    -2   2.26
+RB   1   F    -1   2.16
+RB   1   CL   -1   2.65
+SI   4   C    -4   1.883
+SI   4   N    -3   1.724
+SI   4   O    -2   1.624
+SI   4   S    -2   2.126
+SI   4   CL   -1   2.03
+ZN   2   N    -3   1.77
+ZN   2   O    -2   1.704
+ZN   2   F    -1   1.62
+ZN   2   P    -3   2.15
+ZN   2   S    -2   2.09
+ZN   2   CL   -1   2.01
+#

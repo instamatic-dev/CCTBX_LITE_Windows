@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+\usepackage{cctbx_preamble}
+\usepackage{amscd}
+\usepackage{latexsym}
+\usepackage{listings}
+\lstset{language=Python,tabsize=2,columns=spaceflexible}
+
+\title{Change of Basis\\of\\Electron Density and Structure Factors}
+\author{\lucjbourhis}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Change of basis}
+
+\subsection{Transformations}
+
+Let us consider two frames of the real space, $\mathcal{R}=(\omega, e_1, e_2, e_3)$ and $\mathcal{R}'=(\omega', e'_1, e'_2, e'_3)$, where $\omega$ and $\omega'$ are the origins and $\{e_i\}$ and $\{e'_j\}$ are the basis vectors. The 3-vector of coordinates $x$ and $x'$ of a site in respectively $\mathcal{R}$ and $\mathcal{R}'$ are related by
+\begin{equation}
+x' = \sym{R}{t}x.
+\label{eqn:change::of::basis::position}
+\end{equation}
+where $\sym{R}{t}$ is the change-of-basis operator from $\mathcal{R}$ to $\mathcal{R}'$. We will only consider the case where $\sym{R}{t}$ is orthogonal and the unit cell $U$ is invariant under $R$.
+
+A corollary is the corresponding law for the miller indices,
+\begin{equation}
+h' = hR^{-1}.
+\label{eqn:change::of::basis::miller::index}
+\end{equation}
+and therefore
+\begin{equation}
+h'x' = hx + h't
+\label{eqn:change::of::basis::hx}
+\end{equation}
+Indeed, since scalar product should be independent of the basis, $h'$ must statisfy\footnote{It is most natural in crystallography to represent any position $x$ by a column vector and any miller index $h$ by a row vector (mathematically speaking $h$ is in the reciprocal space of $x$ and therefore $h$ is really a linear form). Therefore the scalar product $h.x$ reads like the mere matrix product $hx$ and the operator relation $h.Rx = R^Th.x$ is the trivial matrix product $hRx$ interpreted in two ways using associativity.} $h'\Delta x' = h\Delta x$ for any vector $\Delta x'$ (as opposed to the point\footnote{Let's not forget the positions make an affine space whereas the miller indices are only the reciprocal of the associated vector space and of course \eqnref{change::of::basis::position} results in $\Delta x' = R \Delta x$} $x$).
+
+The transformation law for the electron density $\rho(x)$ and $\rho'(x')$ in the respective frames 
+$\mathcal{R}$ and $\mathcal{R}'$ reads
+\begin{equation}
+\rho'(x') = \rho(x).
+\label{eqn:change::of::basis::rho}
+\end{equation}
+The transformation for the structure factors can then be deduced from it,
+\begin{align}
+F'(h') &= \int_U \rho'(x') e^{i2\pi h'x'}d^3x', \nonumber\\
+&= e^{i2\pi h' t}  \int_{\sym{R}{t}^{-1}U} \rho(x) e^{i2\pi h x} d^3x, \nonumber\\
+\intertext{by using \eqnref{change::of::basis::rho,change::of::basis::hx} and the Jacobian of $x \mapsto \sym{R}{t}x$ being 1 since $R$ is orthogonal. Thus the invariance of $U$ and the periodicity of $\rho$ results in}
+F'(h') &= e^{i2\pi h't} F(h).
+\label{eqn:change::of::basis::F}\\
+\intertext{or equivalently with \eqnref{change::of::basis::miller::index}}
+F'(h) &= e^{i2\pi ht} F(hR)
+\label{eqn:change::of::basis::F::bis}
+\end{align}
+
+\subsection{Implementation}
+
+\Eqnref{change::of::basis::F} is the formula implemented in the \cctbx\ in \code{sym\_equiv.h}, c.f. \code{sym\_equiv\_index::phase\_eq} and its use in \code{change\_basis.h}. It is particularly convenient since a \code{miller.array} stores $h$ and $F(h)$ in two parallel arrays. By looping over the both of them at the same time, one can compute and immediately store the new miller index $h'$ and the value $F'(h')$ for that new miller index. However it means that the ordering of the original and new data are related as follow
+\begin{equation}
+\begin{CD}
+\ldots @. \ldots\\
+F(h_{i-1}) @= F'(h'_{i-1})\\
+F(h_i) @= F'(h'_i)\\
+F(h_{i+1}) @= F'(h'_{i+1})\\
+\ldots @. \ldots
+\end{CD}
+\label{eqn:miller::array::change::basis}
+\end{equation}
+
+Once the array $\{F'(h')\}$ is computed, one can move back to the more natural memory layout
+\begin{equation}
+\begin{CD}
+\ldots @. \ldots\\
+F(h_{i-1}) @= F'(h_{i-1})\\
+F(h_i) @= F'(h_i)\\
+F(h_{i+1}) @= F'(h_{i+1})\\
+\ldots @. \ldots
+\end{CD}
+\label{eqn:miller::array::transform}
+\end{equation}
+with the following one-liner
+\begin{lstlisting}
+# op is (R|t) and f is a miller.array
+original, transform = f.common_set(
+	f.change_basis(sgtbx.change_of_basis_op(op))
+\end{lstlisting}
+if need be.
+
+\section{Invariance and symmetry cross-correlation: an application}
+
+The following questions are recurrent after any method processing a structure in P1: is the structure invariant under an operator $\sym{R}{t}$ in some ``new'' basis which is not necessarily the ``old'' one we have done that processing in? That is true of the dual space solution method (Phenix.hyss, ShelXD) and also of charge flipping. In practice, the change of basis to consider from the old to the new basis is just a change of origin. The goal is to assess how well this symmetry holds and to find the origin shift.
+
+The key change of variable to consider is
+\begin{equation}
+x' - \omega = \sym{R}{t}(x - \omega),
+\end{equation}
+where $\omega$ is the sought origin. So the change-of-basis operator is $\sym{R}{t + (I-R)\omega}$.
+The sought symmetry is realised if the following invariance holds\footnote{i.e. $\rho = \rho'$, as functions.}
+\begin{equation}
+\rho(x) = \rho(x').
+\end{equation}
+How well this is realised can be quantified by considering the overlap of those two functions
+\begin{align}
+c(\omega) &= \int_U \rho(x) \rho(x') d^3x.\\
+\intertext{The bigger $c(\omega)$, the better the symmetry and therefore one should find the value of $\omega$ maximising $c(\omega)$. Parseval theorem gives its equivalent in Fourier space,}
+c(\omega) &= \sum_h F(h) \overline{F'(h)}. \nonumber\\
+\intertext{Then, with \eqnref{change::of::basis::F::bis}, }
+c(\omega) = c(d) &= \sum_h F(h) \overline{F(hR)} e^{-i 2\pi h d}, 
+\end{align}
+by denoting $d=t + (I-R)\omega$. This formula is a Fourier transform, which provides an efficient way to compute $c(d)$ on a grid over the entire unit cell to search for a maximum. It also features $F(hR)$ which is the result of applying the change-of-basis operator $\sym{R}{0}$ to $F$. Thus, the \code{cctbx} lets us compute $c(d)$ very easily:
+\begin{lstlisting}
+# The rotation part r is a sgtbx.rot_mx and f is a miller.array
+original, transform = f.common_set(
+	f.change_basis(sgtbx.change_of_basis_op(sgtbx.rt_mx(r)))
+cc = original * transform.conjugate().data() / original.sum_sq()
+cc_map = cc.fft_map(
+	symmetry_flags=maptbx.use_space_group_symmetry,
+	resolution_factor=cc.d_min()) # e.g.
+\end{lstlisting}
+
+
+As a side note, in real space, that Fourier transform of the product $F(h) \overline{F(hR)}$ is the convolution,
+\begin{align}
+c(d) &= \int_U \rho(d-x) \rho(-R^{-1}x) d^3x \nonumber\\
+\intertext{which can be recast as a cross-correlation,}
+&= \int_U \rho(x+d) \rho(R^{-1}x) d^3x. \nonumber
+\end{align}
+
+
+\end{document}  

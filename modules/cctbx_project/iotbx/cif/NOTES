@@ -1,0 +1,22 @@
+The files cifParser.{h,c} and cifLexer.{h,c} are generated from the file
+cif.g using antlr-3.2.jar
+
+Since ANTLR can only generate a C-target for the parser, but we specify our own
+C++ code in the grammar actions, cifParser.c and cifLexer.c must be renamed to *.cpp
+
+an example batch file for Windows could be:
+
+set CLASSPATH=.;C:\antlr\antlr-3.2\lib\antlr-3.2.jar
+java org.antlr.Tool cif.g
+
+or for Unix:
+
+/usr/bin/env CLASSPATH=/net/cci/auto_build/repositories/antlr-3.2.jar java org.antlr.Tool cif.g
+
+The required anltr jar files can be obtained from:
+  http://www.antlr.org/download/antlr-3.2.jar
+
+The runtime libraries and associated files required to build and run the
+generated parsers are to be obtained from the antlr3 folder included in
+the cctbx source bundles available from
+  http://cci.lbl.gov/cctbx_build/all.html
