@@ -1,4 +1,4 @@
 @setlocal
-@python -m pip install scipy>1.4 numpy>1.18
+@python -m pip install numpy>1.18 six future
 
 pause

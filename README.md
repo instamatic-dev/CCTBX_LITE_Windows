@@ -16,7 +16,7 @@ In sum, the available toolboxes in this package is `boost.python`, `cctbx main p
 
 # Installation and Requirements
 
-To install this package, download to the package to the destination directory. Then run the `install.bat` file， then set
+To install this package, download to the package to the destination directory and install python 3.7. Support for other python 3 versions will be added. Then run the `install.bat` file， then set
 
     LIBTBX_BUILD = YOUR DESTINATION DIRECTORY/build
 	PYTHONPATH = %LIBTBX_BUILD%\..\modules\cctbx_project;%LIBTBX_BUILD%\..\modules;%LIBTBX_BUILD%\lib
