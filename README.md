@@ -1,4 +1,4 @@
-https://img.shields.io/github/license/Taimin/CCTBX_LITE_Windows)
+![LICENSE](https://img.shields.io/github/license/Taimin/CCTBX_LITE_Windows)
 
 # CCTBX-LITE-Windows
 
