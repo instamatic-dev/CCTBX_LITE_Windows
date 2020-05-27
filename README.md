@@ -1,8 +1,10 @@
 ![LICENSE](https://img.shields.io/github/license/Taimin/CCTBX_LITE_Windows)
+![Repo Size](https://img.shields.io/github/repo-size/Taimin/CCTBX_LITE_Windows)
+![Code Size](https://img.shields.io/github/languages/code-size/Taimin/CCTBX_LITE_Windows)
 
 # CCTBX-LITE-Windows
 
-`CCTBX` is a toolbox for crystallography computation. The Computational Crystallography Toolbox (CCTBX) is being developed as the open source component of the `PHENIX` system. The `CCTBX` also provides some of the key component of the `Olex 2` software. `Olex 2` is dedicated to the workflow of small molecule crystallographic studies. It features a powerful and flexible refinement engine, `olex2.refine`, which is developed as part of the cctbx, in the smtbx top-module.
+`CCTBX` is a toolbox for crystallography computation. The Computational Crystallography Toolbox (CCTBX) is being developed as the open source component of the `PHENIX` system. The `CCTBX` also provides some of the key component of the `Olex 2` software. `Olex 2` is dedicated to the workflow of small molecule crystallographic studies. It features a powerful and flexible refinement engine, `olex2.refine`, which is developed as part of the `cctbx`, in the `smtbx` top-module.
 
 For researchers and students, `CCTBX` can be a quite handy tool for crystallography research. However, the [Downloaded Package](http://cci.lbl.gov/cctbx_build/) is quite large after installation with all the features included, which is quite intimidating for me at least. That is the main reason for me to make this mini version of cctbx. In addition, it is poorly documented. Only limited features and very basic features are documented in [HERE](https://cci.lbl.gov/cctbx_docs/index.html). When faced with such a huge software package, one will easily get lost and confused.
 
@@ -18,7 +20,7 @@ In sum, the available toolboxes in this package is `boost.python`, `cctbx main p
 
 # Installation and Requirements
 
-To install this package, download to the package to the destination directory and install python 3.7. Support for other python 3 versions will be added. Then run the `install.bat` file, then set:
+To install this package, download to the package to the destination directory and install [Python 3.7](https://www.python.org/ftp/python/3.7.7/python-3.7.7-amd64.exe). During the installation, you should choose add python to `PATH` environmental variable. Support for other python 3 versions will be added. Then run the `install.bat` file, then set the following environmental variables:
 
     LIBTBX_BUILD = YOUR DESTINATION DIRECTORY/build
 	PYTHONPATH = %LIBTBX_BUILD%\..\modules\cctbx_project;%LIBTBX_BUILD%\..\modules;%LIBTBX_BUILD%\lib
