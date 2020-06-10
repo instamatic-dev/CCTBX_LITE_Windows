@@ -2561,8 +2561,8 @@ class array(set):
         pairs.column(0), self.sigmas().select(pairs.column(1)))
     return other.array(data=data, sigmas=sigmas)
 
-  def scale(self, other, resolution_dependent=False):
-    s, o = self.common_sets(other)
+  def scale(self, other, resolution_dependent=False, assert_is_similar_symmetry=True):
+    s, o = self.common_sets(other,assert_is_similar_symmetry)
     if(resolution_dependent): ss = 1./flex.pow2(s.d_spacings().data()) / 4.
     s, o = abs(s).data(), abs(o).data()
     scale_factor = 1
@@ -2593,18 +2593,18 @@ class array(set):
       sigmas_new = s.sigmas().concatenate(ol.sigmas())
     return self.customized_copy(data = d_new, indices = i_new, sigmas = sigmas_new)
 
-  def combine(self, other, scale = True, scale_for_lones = 1,
-        scale_for_matches=1):
+  def combine(self, other, scale=True, scale_for_lones=1,
+        scale_for_matches=1, assert_is_similar_symmetry=True):
     assert self.anomalous_flag() == other.anomalous_flag()
-    assert self.sigmas() is None # not implemented
-    f1_c, f2_c = self.common_sets(other = other)
-    f1_l, f2_l = self.lone_sets(other = other)
+    #assert self.sigmas() is None # not implemented
+    f1_c, f2_c = self.common_sets(other = other, assert_is_similar_symmetry=assert_is_similar_symmetry)
+    f1_l, f2_l = self.lone_sets(other = other, assert_is_similar_symmetry=assert_is_similar_symmetry)
     scale_k1 = scale_for_matches
     if(scale):
       den = flex.sum(flex.abs(f2_c.data())*flex.abs(f2_c.data()))
       if(den != 0):
         scale_k1 = flex.sum(flex.abs(f1_c.data())*flex.abs(f2_c.data())) / den
-    result_data = f1_c.data() + f2_c.data()*scale_k1
+    result_data = (f1_c.data() + f2_c.data()*scale_k1)/2
     result_data.extend(f1_l.data()*scale_for_lones)
     result_data.extend(f2_l.data()*scale_k1*scale_for_lones)
     result_indices = f1_c.indices()

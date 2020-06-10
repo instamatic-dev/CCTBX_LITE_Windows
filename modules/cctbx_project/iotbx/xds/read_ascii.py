@@ -28,7 +28,13 @@ class reader(object):
     self.miller_index_columns = [None, None, None]
     self.iobs_column = None
     self.sigma_iobs_column = None
+    self.xd_column = None
+    self.yd_column = None
     self.zd_column = None
+    self.lp_column = None
+    self.peak_column = None
+    self.corr_column = None
+    self.psi_column = None
     self.wavelength = None
     for line in file_handle:
       if (line.startswith("!SPACE_GROUP_NUMBER=")):
@@ -48,8 +54,20 @@ class reader(object):
         self.iobs_column = self.column_index(line)
       elif (line.startswith("!ITEM_SIGMA(IOBS)=")):
         self.sigma_iobs_column = self.column_index(line)
+      elif (line.startswith("!ITEM_XD=")):
+        self.xd_column = self.column_index(line)
+      elif (line.startswith("!ITEM_YD=")):
+        self.yd_column = self.column_index(line)
       elif (line.startswith("!ITEM_ZD=")):
         self.zd_column = self.column_index(line)
+      elif (line.startswith("!ITEM_RLP=")):
+        self.lp_column = self.column_index(line)
+      elif (line.startswith("!ITEM_PEAK=")):
+        self.peak_column = self.column_index(line)
+      elif (line.startswith("!ITEM_CORR=")):
+        self.corr_column = self.column_index(line)
+      elif (line.startswith("!ITEM_PSI=")):
+        self.psi_column = self.column_index(line)
       elif (line.startswith("!X-RAY_WAVELENGTH=")):
         self.wavelength = float(get_rhs(line))
       elif (line.startswith("!END_OF_HEADER")):
@@ -64,14 +82,38 @@ class reader(object):
       self.miller_indices = None
       self.iobs = None
       self.sigma_iobs = None
+      self.xd = None
+      self.yd = None
       self.zd = None
+      self.lp = None
+      self.peak = None
+      self.corr = None
+      self.psi = None
     else:
       self.miller_indices = flex.miller_index()
       self.iobs = flex.double()
       self.sigma_iobs = flex.double()
+      self.xd = None
+      self.yd = None
       self.zd = None
+      self.lp = None
+      self.peak = None
+      self.corr = None
+      self.psi = None
+      if (self.xd_column is not None):
+        self.xd = flex.double()
+      if (self.yd_column is not None):
+        self.yd = flex.double()
       if (self.zd_column is not None):
         self.zd = flex.double()
+      if (self.lp_column is not None):
+        self.lp = flex.double()
+      if (self.peak_column is not None):
+        self.peak = flex.double()
+      if (self.corr_column is not None):
+        self.corr = flex.double()
+      if (self.psi_column is not None):
+        self.psi = flex.double()
       for line in file_handle:
         if (line.startswith("!END_OF_DATA")):
           break
@@ -81,8 +123,21 @@ class reader(object):
         self.miller_indices.append(h)
         self.iobs.append(float(data[self.iobs_column]))
         self.sigma_iobs.append(float(data[self.sigma_iobs_column]))
+        if (self.xd_column is not None):
+          self.xd.append(float(data[self.xd_column]))
+        if (self.yd_column is not None):
+          self.yd.append(float(data[self.yd_column]))
         if (self.zd_column is not None):
           self.zd.append(float(data[self.zd_column]))
+        if (self.lp_column is not None):
+          self.lp.append(float(data[self.lp_column]))
+        if (self.peak_column is not None):
+          self.peak.append(float(data[self.peak_column]))
+        if (self.corr_column is not None):
+          self.corr.append(float(data[self.corr_column]))
+        if (self.psi_column is not None):
+          self.psi.append(float(data[self.psi_column]))
+          
 
   def column_index(self, line):
     i_column = int(get_rhs(line))-1
