@@ -24,3 +24,7 @@ To install this package, download to the package to the destination directory an
 
     LIBTBX_BUILD = YOUR DESTINATION DIRECTORY/build
 	PYTHONPATH = %LIBTBX_BUILD%\..\modules\cctbx_project;%LIBTBX_BUILD%\..\modules;%LIBTBX_BUILD%\lib
+
+In cmder, powder shell user_profile, the following line should be added:
+
+    $ENV:PYTHONPATH = "$BASE\CCTBX_LITE_Windows\modules\cctbx_project;$BASE\CCTBX_LITE_Windows\modules"
